@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>MDocs</title>
+
+    <script type="module" src="/assets/js/zero-md.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap">
+</head>
+
+<body style="background: rgb(33,37,41);font-family: Montserrat, sans-serif;">
+    <div class="bg-dark text-secondary px-4 py-5">
+        <div class="py-6">
+            <% let parPath = path.split("/") %> 
+            <nav aria-label="breadcrumb">
+                <% let finalPath = "";%>
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <% parPath.forEach((dir) => { %>
+                        <% finalPath += `${dir}/`;%>
+                        <% if(dir.endsWith(".md")) { %> 
+                            <li class="breadcrumb-item active" aria-current="page"><%= dir %></li> 
+                        <% } else { %>
+                            <li class="breadcrumb-item"><a href="/docs?path=<%= finalPath %>"><%= dir %></a></li>
+                        <% } %> 
+                    <% }); %>
+                </ol>
+            </nav>
+            <div style="margin: 50px; margin-top: 5px;">
+                <% docs.forEach((dir) => { %> 
+                    <div class="row">
+                        <div class="dir">
+                            <h4 class="dir-name"><%= dir %></h4>
+                            <button onclick="openProject('<%= dir %>')" class="btn btn-success dir-btn" type="button">Open</button>
+                        </div>
+                    </div>
+                <% }); %>
+                <script type="text/javascript">
+                    let obPath = "<%= path %>";
+                    function openProject(path) {
+                        if (obPath.endsWith("/")) {
+                            window.location.href = "/docs?path=" + obPath + path;
+                        } else {
+                            window.location.href = "/docs?path=" + obPath + "/" + path;
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

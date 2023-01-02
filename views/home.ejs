@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>MDocs</title>
+
+    <script type="module" src="/assets/js/zero-md.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap">
+</head>
+
+<body style="background: rgb(33,37,41);font-family: Montserrat, sans-serif;">
+    <%- include("./components/navbar.ejs") %> 
+    <div class="bg-dark text-secondary px-4 py-5">
+        <div class="py-6">
+            <zero-md src="/md/home.md">
+                <template>
+                    <link
+                        rel="stylesheet"
+                        href="/assets/css/prism-one-dark.min.css"
+                    />
+                    <link
+                        rel="stylesheet"
+                        href="/assets/css/github-markdown.min.css"
+                    />
+                    <style>
+                        .markdown-body {
+                            background-color: rgb(26,29,33); 
+                            color: #fff;
+                            border-radius: 10px;
+                            border: 2px solid #888888;
+                            padding: 20px;
+                            margin: 50px;
+                            margin-top: 10px;
+                            margin-bottom: 10px;
+                        }
+                        .markdown-body pre {
+                            border-radius: 7.5px;
+                            padding: 10px;
+                            background-color: rgb(45, 50, 56);
+                        }
+                        .markdown-body code {
+                            text-shadow: none;
+                            background-color: rgb(45, 50, 56);
+                        }
+                    </style>
+                </template>
+            </zero-md>
+            <div style="margin: 50px; margin-top: 10px;">
+                <% docs.forEach((project) => { %> 
+                    <div class="row">
+                        <div class="dir">
+                            <h4 class="dir-name"><%= project.split(".")[0] %></h4>
+                            <button onclick="openProject('<%= project.split(`.`)[0] %>')" class="btn btn-success dir-btn" type="button">Open</button>
+                        </div>
+                    </div>
+                <% }); %>
+                <script type="text/javascript">
+                    function openProject(project) {
+                        window.location.href = "/docs?path=/" + project;
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
